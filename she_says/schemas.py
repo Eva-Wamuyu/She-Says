@@ -21,15 +21,21 @@ class BookBase(BaseModel):
 class BookCreate(BookBase):
     pass
 
+  
+  
+class BookView(BookBase):
+    id: int
+    author_id: int
 
-class Book(BookBase):
+    class Config:
+      orm_mode = True
+
+class Book(BookView):
     id: int
     author_id: int
     author: AuthorBase
 
-    class Config:
-        orm_mode = True
 
 class Author(AuthorBase):
     id: int
-    books: List[Book] = []
+    books: List[BookView] = []

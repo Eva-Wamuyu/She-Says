@@ -6,7 +6,7 @@ from .db import sessionLocal, engine,get_db
 
 author = APIRouter(tags=['Authors'],prefix="/api/v1")
 
-@author.get("/authors/",response_model=List[schemas.Author])
+@author.get("/authors/all",response_model=List[schemas.Author])
 def get_authors(skip: int=0, limit: int=20, db: Session=Depends(get_db)):
     authors = crud.get_authors(db,skip=skip,limit=limit)
     return authors
