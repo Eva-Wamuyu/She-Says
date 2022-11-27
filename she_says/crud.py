@@ -40,3 +40,16 @@ def get_book(db: Session, book_id:int):
 
 def get_books_by_author(author_id:int,db:Session,skip: int=0, limit: int=20):
     return db.query(models.Book).filter(models.Book.author_id==author_id).all()
+
+
+def delete_book(db: Session, book_id:int):
+    book = get_book(db=db,book_id=book_id)
+    db.delete(book)
+    db.commit()
+    return "Book deleted successfully"
+
+def delete_author(db: Session, author_id:int):
+    author = get_author(db=db,author_id=author_id)
+    db.delete(author)
+    db.commit()
+    return "Author deleted successfully"

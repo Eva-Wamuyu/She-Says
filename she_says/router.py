@@ -24,6 +24,16 @@ def add_author(author:schemas.AuthorBase,db: Session=Depends(get_db)):
     
     return crud.create_author(db=db,author_=author)
 
+@author.delete("/author/{author_id}")
+def delete_author(author_id,db: Session=Depends(get_db)):
+    author = crud.get_author(db=db,author_id=author_id)
+    if author is None:
+        raise HTTPException(status_code=404, detail="Author not found")
+    else:
+        return crud.delete_author(db=db,author_id=author_id)
+
+    
+
 
 
 
@@ -61,4 +71,11 @@ def add_book(author:int, book:schemas.BookCreate,db: Session=Depends(get_db)):
         raise HTTPException(status_code=404, detail="Author not found")
     return crud.add_book(db=db, book=book, author_=author)
     
-
+@book.delete("/book/{book_id}")
+def delete_book(book_id,db: Session=Depends(get_db)):
+    book = crud.get_book(db,book_id)
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return crud.delete_book(db=db,book_id=book_id)
+        
+    
