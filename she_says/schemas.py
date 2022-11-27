@@ -8,10 +8,6 @@ class AuthorBase(BaseModel):
     bio: Union[str,None ] = None
 
 
-
-
-
-
     class Config:
         orm_mode = True
 
@@ -28,7 +24,8 @@ class BookCreate(BookBase):
 
 class Book(BookBase):
     id: int
-    owner_id: int
+    author_id: int
+    author: AuthorBase
 
     class Config:
         orm_mode = True

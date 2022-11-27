@@ -28,7 +28,7 @@ def get_books(db:Session,skip: int=0, limit: int=20):
 
 def add_book(db:Session, book: schemas.BookCreate, author_:int):
     
-    new_book = models.Book(**book.dict(),owner_id=author_)
+    new_book = models.Book(**book.dict(),author_id=author_)
     db.add(new_book)
     db.commit()
     db.refresh(new_book)
@@ -36,3 +36,7 @@ def add_book(db:Session, book: schemas.BookCreate, author_:int):
 
 def get_book(db: Session, book_id:int):
     return db.query(models.Book).filter(models.Book.id == book_id).first()
+
+
+def get_books_by_author(author_id:int,db:Session,skip: int=0, limit: int=20):
+    return db.query(models.Book).filter(models.Book.author_id==author_id).all()

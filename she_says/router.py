@@ -30,7 +30,7 @@ def add_author(author:schemas.AuthorBase,db: Session=Depends(get_db)):
 
 book = APIRouter(tags=['Books'],prefix="/api/v1")
 
-@book.get("/books/",response_model=List[schemas.Book])
+@book.get("/books/all",response_model=List[schemas.Book])
 def get_books(skip: int=0, limit: int=20, db: Session=Depends(get_db)):
     books = crud.get_books(db,skip=skip,limit=limit)
     return books
@@ -39,15 +39,26 @@ def get_books(skip: int=0, limit: int=20, db: Session=Depends(get_db)):
 def get_book(book_id:int,db: Session=Depends(get_db)):
     book = crud.get_book(db=db,book_id=book_id)
     if book is None:
-        raise HTTPException(status_code=400, detail="Book not found")
+        raise HTTPException(status_code=404, detail="Book not found")
     return book
+
+
+@book.get("/books/author/{autho_id}",response_model=List[schemas.Book])
+def get_books_by_an_author(author_id:int,skip: int=0, limit: int=20, db: Session=Depends(get_db)):
+    author = crud.get_author(db=db, author_id=author_id)
+    if author is None:
+        raise HTTPException(status_code=404, detail="Author not found")
+    else:
+        books = crud.get_books_by_author(author_id=author_id,db=db, skip=skip, limit=limit)
+        return books
+        
 
 
 @book.post("/book/{author}",response_model=schemas.Book)
 def add_book(author:int, book:schemas.BookCreate,db: Session=Depends(get_db)):
     author__ = crud.get_author(db=db,author_id=author)
     if author__ is None:
-        raise HTTPException()
+        raise HTTPException(status_code=404, detail="Author not found")
     return crud.add_book(db=db, book=book, author_=author)
     
 

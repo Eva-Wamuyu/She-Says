@@ -11,7 +11,7 @@ class Author(Base):
     name = Column(String,index=True)
     bio = Column(String,index=True)
 
-    books = relationship("Book",back_populates="owner")
+    books = relationship("Book",back_populates="author")
 
 
 class Book(Base):
@@ -20,9 +20,9 @@ class Book(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String,index=True)
     description = Column(String,index=True)
-    owner_id= Column(Integer,ForeignKey("authors.id"))
+    author_id= Column(Integer,ForeignKey("authors.id"))
     has_cover = Column(Boolean,default=False)
     cover = Column(String)
 
-    owner = relationship("Author",back_populates="books")
+    author = relationship("Author",back_populates="books")
     
