@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ```
 Run app
 ```
-uvicorn she_says.app:app --reload
+python3 app.py
 
 ```
 

@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import  FastAPI
 
 
@@ -23,3 +24,7 @@ async def index():
 models.Base.metadata.create_all(bind=engine)
 app.include_router(router.author)
 app.include_router(router.book)
+
+
+
+
