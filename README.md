@@ -11,24 +11,17 @@ or
 ```
 git clone git@github.com:Eva-Wamuyu/She-Says.git
 ```
+Navigate to the directory She-Says
 
 ```
 cd She-Says
 ```
-create a virtual environment
 
-Example in venv
+Make the script executable and run it
 ```
-python3 -m venv venv
-```
-Install requirements  
-Example using pip
-```
-pip install -r requirements.txt
-```
-Run app
-```
-python3 app.py
+chmod +x start.sh  
+
+./start.sh
 
 ```
 
